@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Permiso de lectura para el campo 'emp_seq' -->
+        <record id="hr_employee_emp_seq_access" model="ir.model.access">
+            <field name="name">hr.employee.emp_seq.access</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="group_id" ref="base.group_user"/> <!-- Ajusta el grupo según tus necesidades -->
+            <field name="perm_read">1</field>
+            <field name="perm_write">0</field>
+            <field name="perm_create">0</field>
+            <field name="perm_unlink">0</field>
+        </record>
+    </data>
+</odoo>
