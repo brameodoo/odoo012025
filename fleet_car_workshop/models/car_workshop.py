@@ -152,6 +152,14 @@ class CarWorkshop(models.Model):
                                    compute='_compute_invoice_count',
                                    help='The invoice count for the work')
 
+    # INSERTA EL CÓDIGO AQUÍ (ANTES DE LA DEFINICIÓN DE LA FUNCIÓN create)
+    stock_picking_ids = fields.One2many(
+            'stock.picking',
+            'car_workshop_id',  # Campo en stock.picking que apunta a este taller
+            string='Movimientos de Almacén',
+            readonly=True, # Opcional: Si solo quieres mostrar, no editar
+        )    
+
 
     def create(self, vals):
         if vals.get('name', _('Nuevo')) == 'Nuevo':
