@@ -23,6 +23,7 @@ class StockPickingWizard(models.TransientModel):
             'picking_type_id': self.picking_type_id.id,
             'location_id': self.location_id.id,
             'location_dest_id': self.location_dest_id.id,
+            'car_workshop_id': self.workshop_id.id,  # ASIGNAR EL ID DEL TALLER            
             'move_ids': [(0, 0, {
                 'name': line.product_id.name,
                 'product_id': line.product_id.id,
