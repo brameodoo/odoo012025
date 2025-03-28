@@ -20,6 +20,7 @@
 #
 ###############################################################################
 from . import car_workshop
+from . import car_stock
 from . import material_used
 from . import planned_work
 from . import res_config_settings
