@@ -54,6 +54,17 @@
                         </group>
                     </group>
                     <notebook>
+                    <page string="Movimientos de Almacén">
+                        <field name="stock_picking_ids">
+                            <tree string="Movimientos de Almacén" readonly="1">
+                                <field name="name"/>
+                                <field name="picking_type_id"/>
+                                <field name="state"/>
+                                <field name="scheduled_date"/>
+                                <field name="partner_id"/>
+                            </tree>
+                        </field>
+                    </page>                        
                         <page name="description_page" string="Description">
                             <field name="description" type="html"/>
                             <div class="oe_clear"/>
