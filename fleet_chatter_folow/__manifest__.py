@@ -7,7 +7,7 @@
     'author': '',
     'website': '',
     'category': '',
-    'depends': ['base', 'fleet', 'car_workshop'],
+    'depends': ['base', 'fleet'],
     "data": [
         "views/fleet_vehicle_inherit_view.xml",
     ],
