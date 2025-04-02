@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Fleet chatter folow',
-    'version': '',
+    'version': '17.0.1.0.0',
     'description': """ Marca campos especiales para su seguimiento en el Chatter""",
     'summary': """ seguimiento en chatter """,
     'author': '',
