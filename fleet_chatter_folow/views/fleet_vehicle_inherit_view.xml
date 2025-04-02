@@ -1,16 +1,16 @@
 <odoo>
     <data>
         <record id="fleet_vehicle_inherit_form_view" model="ir.ui.view">
-            <name>fleet.vehicle.inherit.form</name>
-            <model>fleet.vehicle</model>
-            <inherit_id ref="fleet.fleet_vehicle_form"/>
-            <arch type="xml">
+            <field name="name">fleet.vehicle.inherit.form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+            <field name="arch" type="xml">
                 <xpath expr="//field[@name='model_id']" position="after">
-                    <field name="vin_sn" />
-                    <field name="manager_id" />
-                    <field name="location" />
+                    <field name="vin_sn"/>
+                    <field name="manager_id"/>
+                    <field name="location"/>
                 </xpath>
-            </arch>
+            </field>
         </record>
     </data>
 </odoo>
