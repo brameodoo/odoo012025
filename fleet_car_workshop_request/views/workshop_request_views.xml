@@ -35,8 +35,8 @@
             </field>
         </record>
 
-        <record id="fleet_workshop_request_view_tree" model="ir.ui.view">
-            <field name="name">workshop.request.form</field>
+        <record id="workshop_request_view_tree" model="ir.ui.view">
+            <field name="name">workshop.request.tree</field>
             <field name="model">workshop.request</field>
             <field name="arch" type="xml">
                 <tree string="Solicitudes de Taller">
@@ -48,9 +48,9 @@
             </field>
         </record>
 
-        <record id="fleet_workshop_request_view_kanban" model="ir.ui.view">
-            <field name="name">fleet.workshop.request.kanban</field>
-            <field name="model">fleet.workshop.request</field>
+        <record id="workshop_request_view_kanban" model="ir.ui.view">
+            <field name="name">workshop.request.kanban</field>
+            <field name="model">workshop.request</field>
             <field name="arch" type="xml">
                 <kanban class="oe_background_ Grey">
                     <field name="name"/>
@@ -80,7 +80,7 @@
 
         <record id="fleet_workshop_request_action" model="ir.actions.act_window">
             <field name="name">Solicitudes de Taller</field>
-            <field name="res_model">fleet.workshop.reques</field>
+            <field name="res_model">workshop.request</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
