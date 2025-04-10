@@ -25,6 +25,7 @@ class WorkshopRequest(models.Model):
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
     driver_id = fields.Many2one('res.partner', string='Conductor')
     description = fields.Text(string='Descripción') # Campo agregado
+    diagnosis = fields.Text(string='Diagnóstico') # Campo agregado
     request_date = fields.Date(string='Fecha de Solicitud', default=fields.Date.today, required=True) # Campo agregado
 
     @api.depends('analyst_id')
