@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="fleet_workshop_request_view_form" model="ir.ui.view">
-            <field name="name">fleet.workshop.request.form</field>
-            <field name="model">fleet.workshop.request</field>
+        <record id="workshop_request_view_form" model="ir.ui.view">
+            <field name="name">workshop.request.form</field>
+            <field name="model">workshop.request</field>
             <field name="arch" type="xml">
                 <form string="Solicitud de Taller">
                     <sheet>
@@ -36,8 +36,8 @@
         </record>
 
         <record id="fleet_workshop_request_view_tree" model="ir.ui.view">
-            <field name="name">fleet.workshop.request.tree</field>
-            <field name="model">fleet.workshop.request</field>
+            <field name="name">workshop.request.form</field>
+            <field name="model">workshop.request</field>
             <field name="arch" type="xml">
                 <tree string="Solicitudes de Taller">
                     <field name="name"/>
@@ -80,7 +80,7 @@
 
         <record id="fleet_workshop_request_action" model="ir.actions.act_window">
             <field name="name">Solicitudes de Taller</field>
-            <field name="res_model">fleet.workshop.request</field>
+            <field name="res_model">fleet.workshop.reques</field>
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
