@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_fleet_workshop_request_user,Acceso Solicitud Taller Usuario,model_fleet_workshop_request,base.group_user,1,1,1,0
+access_workshop_request,Access Workshop Request,model_workshop_request,base.group_user,1,1,1,0
