@@ -9,7 +9,7 @@ class WorkshopRequest(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
 
-        def action_open_form(self):
+    def action_open_form(self):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
