@@ -26,6 +26,10 @@ class WorkshopRequest(models.Model):
     driver_id = fields.Many2one('res.partner', string='Conductor')
     description = fields.Text(string='Descripción') # Campo agregado
     diagnosis = fields.Text(string='Diagnóstico') # Campo agregado
+    repair_details = fields.Text(string='Detalles de Reparación') # Campo agregado
+    workshop_id = fields.Many2one('car.workshop', string='Taller') # Campo agregado
+    estimated_cost = fields.Float(string='Costo Estimado') # Campo agregado
+    repair_date = fields.Date(string='Fecha de Reparación') # Campo agregado
     request_date = fields.Date(string='Fecha de Solicitud', default=fields.Date.today, required=True) # Campo agregado
 
     @api.depends('analyst_id')
