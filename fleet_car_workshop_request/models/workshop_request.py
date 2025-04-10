@@ -4,7 +4,7 @@ from odoo.exceptions import UserError
 from datetime import datetime
 
 class WorkshopRequest(models.Model):
-    _name = 'fleet.workshop.request'
+    _name = 'workshop.request'
     _description = 'Solicitud de Ingreso al Taller'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
