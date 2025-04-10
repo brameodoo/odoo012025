@@ -1,0 +1,13 @@
+<odoo>
+    <data noupdate="1">
+        <record id="workshop_request_sequence" model="ir.sequence">
+            <field name="name">Workshop Request Sequence</field>
+            <field name="code">workshop.request.sequence</field>
+            <field name="prefix">REQ/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+            <field name="implementation">standard</field>
+            <field name="active">True</field>
+        </record>
+    </data>
+</odoo>
