@@ -9,6 +9,17 @@ class WorkshopRequest(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
 
+        def action_open_form(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Solicitud de Taller',
+            'res_model': 'workshop.request',
+            'res_id': self.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
     name = fields.Char(string='Número de Solicitud', required=True, readonly=True, default=lambda self: _('Nuevo'))
     analyst_id = fields.Many2one('res.users', string='Analista', default=lambda self: self.env.user, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehículo', required=True)
