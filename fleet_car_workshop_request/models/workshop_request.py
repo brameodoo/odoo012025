@@ -27,6 +27,7 @@ class WorkshopRequest(models.Model):
     description = fields.Text(string='Descripción') # Campo agregado
     diagnosis = fields.Text(string='Diagnóstico') # Campo agregado
     repair_details = fields.Text(string='Detalles de Reparación') # Campo agregado
+    notes = fields.Text(string='Notas') # Campo agregado
     workshop_id = fields.Many2one('car.workshop', string='Taller') # Campo agregado
     estimated_cost = fields.Float(string='Costo Estimado') # Campo agregado
     repair_date = fields.Date(string='Fecha de Reparación') # Campo agregado
