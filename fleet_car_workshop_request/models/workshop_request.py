@@ -23,6 +23,7 @@ class WorkshopRequest(models.Model):
     ], string='Estado', default='draft', tracking=True)
     workshop_order_id = fields.Many2one('car.workshop', string='Orden de Taller', readonly=True, copy=False)
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
+    driver_id = fields.Many2one('res.partner', string='Conductor')  # Campo agregado
 
     @api.depends('analyst_id')
     def _compute_is_analyst(self):
@@ -45,10 +46,10 @@ class WorkshopRequest(models.Model):
         self.state = 'confirmed'
         #Crea la orden de taller automaticamente al confirmar la solicitud
         self.workshop_order_id = self.env['car.workshop'].create({
-                                                                    'vehicle_id': self.vehicle_id.id,
-                                                                    'name': f'{self.name} - {self.vehicle_id.name}',
-                                                                    'date_assign':self.assignment_date
-                                                                    })
+            'vehicle_id': self.vehicle_id.id,
+            'name': f'{self.name} - {self.vehicle_id.name}',
+            'date_assign':self.assignment_date
+        })
 
         template_id = self.env.ref('fleet_car_workshop_request.email_template_workshop_request_confirmation')
         self.message_post_with_template(
