@@ -23,6 +23,7 @@ class WorkshopRequest(models.Model):
     ], string='Estado', default='draft', tracking=True)
     workshop_order_id = fields.Many2one('car.workshop', string='Orden de Taller', readonly=True, copy=False)
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
+    driver_id = fields.Many2one('res.partner', string='Conductor')
     request_date = fields.Date(string='Fecha de Solicitud', default=fields.Date.today, required=True) # Campo agregado
 
     @api.depends('analyst_id')
