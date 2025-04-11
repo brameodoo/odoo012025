@@ -44,7 +44,7 @@ class CarWorkshop(models.Model):
         # this should fetch the one with the lowest sequence number.
         return self.env['worksheet.stages'].search([], limit=1)
 
-    vehicle_id = fields.Many2one('fleet.vehicle', string='Vehicle',
+    vehicle_id = fields.Many2one('vehicle_details', string='Vehicle',
                                  index=True, tracking=True, change_default=True,
                                  help='The vehicle for the work started')
     
