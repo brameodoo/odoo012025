@@ -17,20 +17,28 @@
                 </header>
                 <sheet>
                     <group>
-                        <group>
+                        <group string="Información de la Solicitud">
                             <field name="name"/>
                             <field name="analyst_id" readonly="1"/>
-                            <field name="is_analyst" invisible="1"/>  <!-- AGREGAR ESTE CAMPO -->
+                            <field name="is_analyst" invisible="1"/>
+                            <field name="request_date" readonly="1"/> </group>
+                        <group string="Información del Vehículo">
                             <field name="vehicle_id"/>
-                        </group>
-                        <group>
-                            <field name="assignment_date" readonly="state != 'waiting_assignment'"/>
-                            <field name="workshop_order_id"/>
                         </group>
                     </group>
                     <group string="Falla Reportada">
                         <field name="reported_fault" nolabel="1"/>
                     </group>
+                    <notebook>
+                        <page string="Detalles del Taller">
+                            <group>
+                                <field name="workshop_id"/>
+                                <field name="estimated_cost"/>
+                                <field name="repair_date"/>
+                            </group>
+                            <field name="repair_details" nolabel="1" placeholder="Ingrese los detalles de la reparación aquí..."/>
+                        </page>
+                    </notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>
@@ -49,7 +57,7 @@
                 <field name="name"/>
                 <field name="analyst_id"/>
                 <field name="vehicle_id"/>
-                <field name="request_date"/>  <!-- Agrega la fecha de solicitud -->
+                <field name="request_date"/>
                 <field name="assignment_date"/>
                 <field name="state"/>
             </tree>
