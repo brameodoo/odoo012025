@@ -5,10 +5,14 @@
         <field name="arch" type="xml">
             <form string="Solicitud de Ingreso al Taller">
                 <header>
-                    <button name="action_register_request" string="Registrar Solicitud" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_analyst','!=',True)]}"/>
-                    <button name="action_confirm_request" string="Confirmar" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '!=', 'waiting_assignment'),('is_analyst','!=',False)]}"/>
-                    <button name="action_set_done" string="Realizada" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
-                    <button name="action_cancel_request" string="Cancelar" type="object" attrs="{'invisible': ['|',('state', '=', 'done'),('state','=','cancel')]}"/>
+                    <button name="action_register_request" string="Registrar Solicitud" type="object" class="oe_highlight"
+                            invisible="not is_analyst or state != 'draft'"/>
+                    <button name="action_confirm_request" string="Confirmar" type="object" class="oe_highlight"
+                            invisible="is_analyst or state != 'waiting_assignment'"/>
+                    <button name="action_set_done" string="Realizada" type="object" class="oe_highlight"
+                            invisible="state != 'confirmed'"/>
+                    <button name="action_cancel_request" string="Cancelar"
+                            invisible="state in ('done', 'cancel')"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,waiting_assignment,confirmed,done"/>
                 </header>
                 <sheet>
@@ -19,7 +23,7 @@
                             <field name="vehicle_id"/>
                         </group>
                         <group>
-                            <field name="assignment_date" attrs="{'readonly': [('state', '!=', 'waiting_assignment')]}"/>
+                            <field name="assignment_date" readonly="state != 'waiting_assignment'"/>
                             <field name="workshop_order_id"/>
                         </group>
                     </group>
@@ -27,7 +31,7 @@
                         <field name="reported_fault" nolabel="1"/>
                     </group>
                 </sheet>
-                 <div class="oe_chatter">
+                <div class="oe_chatter">
                     <field name="message_follower_ids"/>
                     <field name="activity_ids"/>
                     <field name="message_ids"/>
