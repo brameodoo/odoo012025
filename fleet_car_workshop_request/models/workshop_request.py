@@ -12,8 +12,8 @@ class WorkshopRequest(models.Model):
     analyst_id = fields.Many2one('res.users', string='Analista', default=lambda self: self.env.user, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehículo', required=True)
     reported_fault = fields.Text(string='Falla Reportada', required=True)
-    assignment_date = fields.Date(string='Fecha de Asignación', store=True)
-    request_date = fields.Datetime(string='Fecha de Solicitud', readonly=True, default=fields.Datetime.now)
+    assignment_date = fields.Date(string='Fecha de Asignación', readonly=True, store=True)
+    request_date = fields.Datetime(string='Fecha de Solicitud', readonly=True, default=fields.Datetime.now) #AGREGA ESTE CAMPO
     state = fields.Selection([
         ('draft', 'Borrador'),
         ('waiting_assignment', 'Esperando Asignación'),
@@ -37,11 +37,6 @@ class WorkshopRequest(models.Model):
 
     def action_register_request(self):
         self.state = 'waiting_assignment'
-
-    @api.onchange('assignment_date') #Agrega esta funcion
-    def _onchange_assignment_date(self):
-        if self.assignment_date and self.state == 'waiting_assignment':
-            self.action_confirm_request()
 
     def action_confirm_request(self):
         if not self.assignment_date:
@@ -75,4 +70,4 @@ class WorkshopRequest(models.Model):
         for rec in self:
             if rec.state == 'confirmed':
                 raise UserError(_("No se puede borrar una solicitud confirmada."))
-    return super(WorkshopRequest, self).unlink()
+    return super(WorkshopRequest, self).unlink()  # Línea 78 Corregida
