@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from datetime import datetime
@@ -14,6 +13,7 @@ class WorkshopRequest(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehículo', required=True)
     reported_fault = fields.Text(string='Falla Reportada', required=True)
     assignment_date = fields.Date(string='Fecha de Asignación', readonly=True, store=True)
+    request_date = fields.Datetime(string='Fecha de Solicitud', readonly=True, default=fields.Datetime.now) #AGREGA ESTE CAMPO
     state = fields.Selection([
         ('draft', 'Borrador'),
         ('waiting_assignment', 'Esperando Asignación'),
