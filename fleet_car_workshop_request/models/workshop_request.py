@@ -13,7 +13,7 @@ class WorkshopRequest(models.Model):
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehículo', required=True)
     reported_fault = fields.Text(string='Falla Reportada', required=True)
     assignment_date = fields.Date(string='Fecha de Asignación', readonly=True, store=True)
-    request_date = fields.Datetime(string='Fecha de Solicitud', readonly=True, default=fields.Datetime.now) #AGREGA ESTE CAMPO
+    request_date = fields.Datetime(string='Fecha de Solicitud', readonly=True, default=fields.Datetime.now)
     state = fields.Selection([
         ('draft', 'Borrador'),
         ('waiting_assignment', 'Esperando Asignación'),
@@ -23,6 +23,11 @@ class WorkshopRequest(models.Model):
     ], string='Estado', default='draft', tracking=True)
     workshop_order_id = fields.Many2one('car.workshop', string='Orden de Taller', readonly=True, copy=False)
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
+
+    repair_details = fields.Text(string='Detalles de Reparación')
+    workshop_id = fields.Many2one('car.workshop', string='Taller')
+    estimated_cost = fields.Float(string='Costo Estimado')
+    repair_date = fields.Date(string='Fecha de Reparación')
 
     @api.depends('analyst_id')
     def _compute_is_analyst(self):
@@ -45,10 +50,10 @@ class WorkshopRequest(models.Model):
         self.state = 'confirmed'
         #Crea la orden de taller automaticamente al confirmar la solicitud
         self.workshop_order_id = self.env['car.workshop'].create({
-                                                                    'vehicle_id': self.vehicle_id.id,
-                                                                    'name': f'{self.name} - {self.vehicle_id.name}',
-                                                                    'date_assign':self.assignment_date
-                                                                    })
+            'vehicle_id': self.vehicle_id.id,
+            'name': f'{self.name} - {self.vehicle_id.name}',
+            'date_assign':self.assignment_date
+        })
 
         template_id = self.env.ref('fleet_car_workshop_request.email_template_workshop_request_confirmation')
         self.message_post_with_template(
