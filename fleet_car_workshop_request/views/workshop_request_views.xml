@@ -8,7 +8,7 @@
                     <button name="action_register_request" string="Registrar Solicitud" type="object" class="oe_highlight"
                             invisible="not is_analyst or state != 'draft'"/>
                     <button name="action_confirm_request" string="Confirmar" type="object" class="oe_highlight"
-                            invisible="is_analyst or state != 'waiting_assignment'"/>
+                            invisible="is_analyst or state != 'waiting_assignment' or assignment_date == False"/>
                     <button name="action_set_done" string="Realizada" type="object" class="oe_highlight"
                             invisible="state != 'confirmed'"/>
                     <button name="action_cancel_request" string="Cancelar"
@@ -21,10 +21,16 @@
                             <field name="name"/>
                             <field name="analyst_id" readonly="1"/>
                             <field name="is_analyst" invisible="1"/>
-                            <field name="request_date" readonly="1"/> </group>
+                            <field name="request_date" readonly="1"/>
+                        </group>
                         <group string="Información del Vehículo">
                             <field name="vehicle_id"/>
                         </group>
+                    </group>
+                    <group>
+                        <field name="assignment_date"
+                               attrs="{'readonly': [('state', '!=', 'waiting_assignment')]}"/>
+                        <field name="workshop_order_id" readonly="1"/>
                     </group>
                     <group string="Falla Reportada">
                         <field name="reported_fault" nolabel="1"/>
