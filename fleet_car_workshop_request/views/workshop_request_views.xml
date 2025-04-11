@@ -1,108 +1,65 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <data>
-        <!-- Acción -->
-        <record id="fleet_workshop_request_action" model="ir.actions.act_window">
-            <field name="name">Solicitudes de Taller</field>
-            <field name="res_model">workshop.request</field>
-            <field name="view_mode">tree,form,kanban</field>
-        </record>
-
-        <!-- Menús -->
-        <menuitem id="fleet_workshop_request_menu_root"
-                  name="Taller de Flota"
-                  sequence="30"
-                  web_icon="fleet_car_workshop_request,static/description/icon.png"/>
-
-        <menuitem id="fleet_workshop_request_menu_action"
-                  name="Solicitudes"
-                  parent="fleet_workshop_request_menu_root"
-                  action="fleet_workshop_request_action"
-                  sequence="10"/>
-
-        <!-- Vista Formulario -->
-        <record id="workshop_request_view_form" model="ir.ui.view">
-            <field name="name">workshop.request.form</field>
-            <field name="model">workshop.request</field>
-            <field name="arch" type="xml">
-                <form string="Solicitud de Taller">
-                    <sheet>
+    <record id="workshop_request_view_form" model="ir.ui.view">
+        <field name="name">workshop.request.view.form</field>
+        <field name="model">workshop.request</field>
+        <field name="arch" type="xml">
+            <form string="Solicitud de Ingreso al Taller">
+                <header>
+                    <button name="action_register_request" string="Registrar Solicitud" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '!=', 'draft'),('is_analyst','!=',True)]}"/>
+                    <button name="action_confirm_request" string="Confirmar" type="object" class="oe_highlight" attrs="{'invisible': ['|',('state', '!=', 'waiting_assignment'),('is_analyst','!=',False)]}"/>
+                    <button name="action_set_done" string="Realizada" type="object" class="oe_highlight" attrs="{'invisible': [('state', '!=', 'confirmed')]}"/>
+                    <button name="action_cancel_request" string="Cancelar" type="object" attrs="{'invisible': ['|',('state', '=', 'done'),('state','=','cancel')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting_assignment,confirmed,done"/>
+                </header>
+                <sheet>
+                    <group>
                         <group>
-                            <group string="Información del Vehículo">
-                                <field name="vehicle_id" required="1"/>
-                                <field name="driver_id"/>
-                            </group>
-                            <group string="Detalles de la Solicitud">
-                                <field name="request_date" required="1"/>
-                                <field name="description"/>
-                            </group>
+                            <field name="name"/>
+                            <field name="analyst_id" readonly="1"/>
+                            <field name="vehicle_id"/>
                         </group>
-                        <notebook>
-                            <page string="Diagnóstico y Reparación">
-                                <field name="diagnosis"/>
-                                <field name="repair_details"/>
-                                <field name="workshop_id"/>
-                                <field name="estimated_cost"/>
-                                <field name="repair_date"/>
-                            </page>
-                            <page string="Estado">
-                                <field name="state"
-                                       widget="statusbar"
-                                       statusbar_visible="draft,waiting_assignment,confirmed,done,cancel"/>
-                                <field name="notes"/>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+                        <group>
+                            <field name="assignment_date" attrs="{'readonly': [('state', '!=', 'waiting_assignment')]}"/>
+                            <field name="workshop_order_id"/>
+                        </group>
+                    </group>
+                    <group string="Falla Reportada">
+                        <field name="reported_fault" nolabel="1"/>
+                    </group>
+                </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
 
-        <!-- Vista Árbol -->
-        <record id="workshop_request_view_tree" model="ir.ui.view">
-            <field name="name">workshop.request.tree</field>
-            <field name="model">workshop.request</field>
-            <field name="arch" type="xml">
-                <tree string="Solicitudes de Taller">
-                    <field name="name"/>
-                    <field name="vehicle_id"/>
-                    <field name="request_date"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
+    <record id="workshop_request_view_tree" model="ir.ui.view">
+        <field name="name">workshop.request.view.tree</field>
+        <field name="model">workshop.request</field>
+        <field name="arch" type="xml">
+            <tree string="Solicitudes de Ingreso al Taller">
+                <field name="name"/>
+                <field name="analyst_id"/>
+                <field name="vehicle_id"/>
+                <field name="assignment_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
 
-        <!-- Vista Kanban -->
-        <record id="workshop_request_view_kanban" model="ir.ui.view">
-            <field name="name">workshop.request.kanban</field>
-            <field name="model">workshop.request</field>
-            <field name="arch" type="xml">
-                <kanban class="oe_background_grey">
-                    <field name="name"/>
-                    <field name="vehicle_id"/>
-                    <field name="request_date"/>
-                    <field name="state"/>
-                    <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_global">
-                                <div class="oe_kanban_details">
-                                    <strong><field name="name"/></strong>
-                                    <ul>
-                                        <li>Vehículo: <field name="vehicle_id"/></li>
-                                        <li>Fecha de Solicitud: <field name="request_date"/></li>
-                                        <li>Estado: <field name="state"/></li>
-                                    </ul>
-                                </div>
-                                <div class="oe_kanban_buttons">
-                                    <button name="fleet_workshop_request_action"
-                                            type="action"
-                                            class="oe_kanban_button_extend"
-                                            icon="fa-pencil"/>
-                                </div>
-                            </div>
-                        </t>
-                    </templates>
-                </kanban>
-            </field>
-        </record>
-    </data>
+    <record id="workshop_request_action" model="ir.actions.act_window">
+        <field name="name">Solicitudes de Ingreso al Taller</field>
+        <field name="res_model">workshop.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Aquí puede crear y gestionar las solicitudes de ingreso al taller.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_workshop_request" name="Solicitudes de Ingreso" parent="fleet_car_workshop.menu_car_workshop_root" action="workshop_request_action" sequence="1"/>
 </odoo>
