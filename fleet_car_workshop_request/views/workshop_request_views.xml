@@ -20,6 +20,7 @@
                         <group>
                             <field name="name"/>
                             <field name="analyst_id" readonly="1"/>
+                            <field name="is_analyst" invisible="1"/>  <!-- AGREGAR ESTE CAMPO -->
                             <field name="vehicle_id"/>
                         </group>
                         <group>
