@@ -76,3 +76,23 @@ class WorkshopRequest(models.Model):
             if rec.state == 'confirmed':
                 raise UserError(_("No se puede borrar una solicitud confirmada."))
         return super(WorkshopRequest, self).unlink()
+
+    @api.onchange('assignment_date')
+    def _onchange_assignment_date(self):
+        if self.assignment_date and self.state == 'waiting_assignment':
+            self.state = 'confirmed'
+            # Crea la orden de taller automáticamente al asignar la fecha
+            self.workshop_order_id = self.env['car.workshop'].create({
+                'vehicle_id': self.vehicle_id.id,
+                'name': f'{self.name} - {self.vehicle_id.name}',
+                'date_assign': self.assignment_date
+            })
+
+            template_id = self.env.ref('fleet_car_workshop_request.email_template_workshop_request_confirmation')
+            self.message_post_with_template(
+                template_id=template_id.id,
+                composition_mode='comment',
+                force_send=True,
+                model='workshop.request',
+                res_id=self.id
+            )
