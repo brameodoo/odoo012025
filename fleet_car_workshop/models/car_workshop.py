@@ -44,17 +44,11 @@ class CarWorkshop(models.Model):
         # this should fetch the one with the lowest sequence number.
         return self.env['worksheet.stages'].search([], limit=1)
 
-    vehicle_id = fields.Many2one('vehicle_details', string='Vehicle',
+    vehicle_id = fields.Many2one('vehicle.details', string='Vehicle',
                                  index=True, tracking=True, change_default=True,
                                  help='The vehicle for the work started')
-    
-    #Old name field
-    #name = fields.Char(string='Title', tracking=True, required=True,
-    #                   help='Give Name of the work')
-
-    #New name field
-    name = fields.Char(string='Title', required=True, copy=False, readonly=True, default=lambda self: _('Nuevo'))
-
+    name = fields.Char(string='Title', tracking=True, required=True,
+                       help='Give Name of the work')
     user_id = fields.Many2one('res.users', string='Assigned to',
                               default=lambda self: self.env.user, tracking=True,
                               help='Give Name of the user')
@@ -151,7 +145,7 @@ class CarWorkshop(models.Model):
     invoice_count = fields.Integer(string="Invoice_count",
                                    compute='_compute_invoice_count',
                                    help='The invoice count for the work')
-
+    
     # INSERTA EL CÓDIGO AQUÍ (ANTES DE LA DEFINICIÓN DE LA FUNCIÓN create)
     stock_picking_ids = fields.One2many(
             'stock.picking',
@@ -159,12 +153,6 @@ class CarWorkshop(models.Model):
             string='Movimientos de Almacén',
             readonly=True, # Opcional: Si solo quieres mostrar, no editar
         )    
-
-
-    def create(self, vals):
-        if vals.get('name', _('Nuevo')) == 'Nuevo':
-            vals['name'] = self.env['ir.sequence'].next_by_code('car.workshop') or _('Nuevo')
-        return super(CarWorkshop, self).create(vals)
 
     @api.depends('planned_work_ids.work_cost', 'materials_ids.price')
     def _compute_amount_total(self):
@@ -319,7 +307,7 @@ class CarWorkshop(models.Model):
                 'default_location_id': self.env['stock.location'].search([('usage', '=', 'internal')], limit=1).id,
                 'default_location_dest_id': self.env['stock.location'].search([('usage', '=', 'customer')], limit=1).id,
             },
-        }         
+        }        
 
     @api.depends('works_done_ids.duration')
     def _compute_effective_hour(self):
