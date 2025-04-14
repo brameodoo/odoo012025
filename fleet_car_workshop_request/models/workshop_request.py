@@ -26,6 +26,7 @@ class WorkshopRequest(models.Model):
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
     estimated_cost = fields.Float(string='Costo Estimado')
     repair_date = fields.Date(string='Fecha de Reparación') # ¡CAMPO AÑADIDO!
+    repair_details = fields.Text(string='Detalles de la Reparación', placeholder="Ingrese los detalles de la reparación aquí...") # ¡CAMPO AÑADIDO!
 
     @api.depends('analyst_id')
     def _compute_is_analyst(self):
