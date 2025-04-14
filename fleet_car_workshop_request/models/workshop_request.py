@@ -25,6 +25,7 @@ class WorkshopRequest(models.Model):
     workshop_order_id = fields.Many2one('car.workshop', string='Orden de Taller', readonly=True, copy=False)
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
     estimated_cost = fields.Float(string='Costo Estimado')
+    repair_date = fields.Date(string='Fecha de Reparación') # ¡CAMPO AÑADIDO!
 
     @api.depends('analyst_id')
     def _compute_is_analyst(self):
