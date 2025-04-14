@@ -9,6 +9,7 @@ class WorkshopRequest(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Número de Solicitud', required=True, readonly=True, default=lambda self: _('Nuevo'))
+    workshop_id = fields.Many2one('car.workshop', string='Taller', help='Taller al que se refiere esta solicitud')
     analyst_id = fields.Many2one('res.users', string='Analista', default=lambda self: self.env.user, readonly=True)
     vehicle_id = fields.Many2one('fleet.vehicle', string='Vehículo', required=True)
     reported_fault = fields.Text(string='Falla Reportada', required=True)
