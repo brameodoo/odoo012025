@@ -24,6 +24,7 @@ class WorkshopRequest(models.Model):
     ], string='Estado', default='draft', tracking=True)
     workshop_order_id = fields.Many2one('car.workshop', string='Orden de Taller', readonly=True, copy=False)
     is_analyst = fields.Boolean(string='Es Analista', compute='_compute_is_analyst', store=False)
+    estimated_cost = fields.Float(string='Costo Estimado')
 
     @api.depends('analyst_id')
     def _compute_is_analyst(self):
