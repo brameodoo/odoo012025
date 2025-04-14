@@ -60,8 +60,9 @@ class CarWorkshop(models.Model):
                               help='Give Name of the user')
     active = fields.Boolean(string='Active', default=True,
                             help='Work is active?')
-    partner_id = fields.Many2one(related='vehicle_id.partner_id', string='Customer',
-                                help='Customer or car owner')
+    partner_id = fields.Many2one('res.partner', string='Customer',
+                                 related='vehicle_id.partner_id',
+                                 help='Customer or car owner')
     priority = fields.Selection([('0', 'Normal'), ('1', 'High')],
                                 string='Priority', index=True, default='0',
                                 help='Priority of work')
